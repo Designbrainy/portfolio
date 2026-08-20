@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Abdulrahim M Ahmed — Software Developer & Electrical Engineer. On a journey to building AI-powered tools that solve real problems.">
+    <meta property="og:title" content="Abdulrahim M Ahmed — Portfolio">
+    <meta property="og:description" content="Software Developer & Electrical Engineer building AI-powered tools.">
+    <meta property="og:type" content="website">
+    <title>Abdulrahim M Ahmed — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --primary-dark: #1d4ed8;
+            --bg: #ffffff;
+            --bg-alt: #f8fafc;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --border: #e2e8f0;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --card-shadow-hover: 0 10px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --max-width: 1100px;
+        }
+
+        /* ===== Reset ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
+        a:hover { color: var(--primary-dark); }
+        img { max-width: 100%; display: block; }
+
+        /* ===== Scroll Animation ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow var(--transition);
+        }
+        .navbar.scrolled { box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+        .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+        .nav-logo span { color: var(--primary); }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition);
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: transform var(--transition), opacity var(--transition);
+        }
+
+        /* Mobile Nav */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            z-index: 999;
+        }
+        .mobile-nav.open { display: block; }
+        .mobile-nav ul { list-style: none; padding: 16px 24px; }
+        .mobile-nav li { padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .mobile-nav li:last-child { border-bottom: none; }
+        .mobile-nav a {
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        /* ===== Section Layout ===== */
+        .section {
+            padding: 100px 24px;
+        }
+        .section-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .section-alt { background: var(--bg-alt); }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 48px;
+            max-width: 600px;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 64px;
+        }
+        .hero-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+        }
+        .hero-badge-dot {
+            width: 8px; height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text);
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
+        .hero h1 .highlight { color: var(--primary); }
+        .hero-sub {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 1.12rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin-bottom: 36px;
+            line-height: 1.6;
+        }
+        .hero-sub-line {
+            display: block;
+        }
+        .hero-avatar-wrapper {
+            margin-bottom: 24px;
+        }
+        .hero-avatar-frame {
+            width: 192px;
+            height: 192px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            box-shadow: 0 12px 32px rgba(37, 99, 235, 0.18), 0 4px 12px rgba(0,0,0,0.06);
+            display: inline-block;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+        .hero-avatar-frame:hover {
+            transform: scale(1.03);
+            box-shadow: 0 16px 38px rgba(37, 99, 235, 0.24);
+        }
+        .hero-avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3.5px solid #ffffff;
+            display: block;
+        }
+        @media (max-width: 600px) {
+            .hero-avatar-frame {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+        .btn-primary:hover { background: var(--primary-dark); color: #fff; transform: translateY(-1px); }
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1.5px solid var(--border);
+        }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+
+        /* ===== About ===== */
+        .about-text {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        .skills-group { margin-bottom: 20px; }
+        .skills-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+        .skills-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .pill {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: all var(--transition);
+        }
+        .pill:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        /* ===== Projects Grid ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        @media (max-width: 768px) {
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+        .project-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px 28px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all var(--transition);
+        }
+        .project-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-4px);
+        }
+        .project-body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between;
+        }
+        .project-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .project-desc {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .project-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            color: var(--text-secondary);
+        }
+        .project-links {
+            display: flex;
+            gap: 16px;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .project-link:hover { color: var(--primary-dark); }
+        .project-link svg { width: 16px; height: 16px; }
+
+        /* ===== Design Section ===== */
+        .design-section {
+            text-align: center;
+            padding: 80px 24px;
+        }
+        .design-section .section-subtitle {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 32px;
+        }
+        .design-section .section-title { margin-bottom: 12px; }
+
+        /* ===== Contact ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            transition: all var(--transition);
+        }
+        .contact-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--card-shadow);
+            transform: translateY(-2px);
+        }
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        .contact-icon svg { width: 20px; height: 20px; }
+        .contact-info { min-width: 0; }
+        .contact-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-light);
+        }
+        .contact-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            border-top: 1px solid var(--border);
+            font-size: 0.88rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== Navbar ===== -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <a href="#hero" class="nav-logo">Abdulrahim M Ahmed<span>.</span></a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#design">Design</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+    <ul>
+        <li><a href="#about" class="mobile-link">About</a></li>
+        <li><a href="#projects" class="mobile-link">Projects</a></li>
+        <li><a href="#design" class="mobile-link">Design</a></li>
+        <li><a href="#contact" class="mobile-link">Contact</a></li>
+    </ul>
+</div>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="hero">
+    <div class="hero-inner">
+        <div class="hero-avatar-wrapper reveal">
+            <div class="hero-avatar-frame">
+                <img src="profile.jpg" alt="Abdulrahim M Ahmed" class="hero-avatar-img">
+            </div>
+        </div>
+        <h1 class="reveal">On a journey to building <span class="highlight">AI-powered</span> tools that solve real problems.</h1>
+        <div class="hero-sub reveal">
+            <span class="hero-sub-line">Advancing in AI &amp; Machine Learning | Brand Designer | Software Developer</span>
+            <span class="hero-sub-line">Bridging the gap between data, design and real-world problems</span>
+            <span class="hero-sub-line">Electrical Engineering Student at Ahmadu Bello University, Zaria</span>
+        </div>
+        <div class="hero-btns reveal">
+            <a href="#projects" class="btn btn-primary">View My Work ↓</a>
+            <a href="#contact" class="btn btn-outline">Get In Touch</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== About ===== -->
+<section class="section section-alt" id="about">
+    <div class="section-inner">
+        <h2 class="section-title reveal">About Me</h2>
+        <p class="about-text reveal">
+            I'm Abdulrahim, a brand designer and electrical engineering student at Ahmadu Bello University, Zaria, Nigeria, building my way toward a career in AI engineering. My engineering background shapes how I work: I break problems down, test assumptions, and build in stages, and that same precision carries into my design work. I'm driven by the belief that technology should solve real problems for real people, especially across African contexts. I move comfortably between design, code, and AI depending on what a project actually needs.
+        </p>
+        <div class="reveal">
+            <div class="skills-group">
+                <div class="skills-label">Languages</div>
+                <div class="skills-pills">
+                    <span class="pill">Python</span>
+                    <span class="pill">JavaScript</span>
+                    <span class="pill">TypeScript</span>
+                    <span class="pill">HTML / CSS</span>
+                </div>
+            </div>
+            <div class="skills-group">
+                <div class="skills-label">AI / ML</div>
+                <div class="skills-pills">
+                    <span class="pill">Google Gemini API</span>
+                    <span class="pill">NLTK</span>
+                    <span class="pill">NLP</span>
+                    <span class="pill">Sentiment Analysis</span>
+                </div>
+            </div>
+            <div class="skills-group">
+                <div class="skills-label">Tools &amp; Infra</div>
+                <div class="skills-pills">
+                    <span class="pill">Git</span>
+                    <span class="pill">Docker</span>
+                    <span class="pill">Drizzle ORM</span>
+                    <span class="pill">Netlify</span>
+                    <span class="pill">Fly.io</span>
+                </div>
+            </div>
+            <div class="skills-group">
+                <div class="skills-label">Design</div>
+                <div class="skills-pills">
+                    <span class="pill">UI/UX Design</span>
+                    <span class="pill">Graphic Design</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Projects ===== -->
+<section class="section" id="projects">
+    <div class="section-inner">
+        <h2 class="section-title reveal">Projects</h2>
+        <p class="section-subtitle reveal">A selection of things I've built — each one started as a problem I wanted to solve.</p>
+
+        <div class="projects-grid">
+            <!-- EE Scholar AI -->
+            <div class="project-card reveal">
+                <div class="project-body">
+                    <h3 class="project-title">EE Scholar AI</h3>
+                    <p class="project-desc">An AI-powered tutor for Electrical Engineering students at ABU Zaria. Features chat with Gemini, course-specific study materials with file attachments, a Nigerian 5-point GPA calculator, voice tutoring, and a downloadable PWA.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">Netlify Functions</span>
+                        <span class="project-tag">Gemini API</span>
+                        <span class="project-tag">Drizzle ORM</span>
+                        <span class="project-tag">PWA</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://fluffy-malabi-909d45.netlify.app" target="_blank" rel="noopener" class="project-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            Live Demo
+                        </a>
+                        <a href="https://github.com/Designbrainy/ABU-EE-Scholar" target="_blank" rel="noopener" class="project-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Distill -->
+            <div class="project-card reveal">
+                <div class="project-body">
+                    <h3 class="project-title">Distill</h3>
+                    <p class="project-desc">A privacy-first image compressor that shrinks JPEG, PNG, and WebP files without quality loss. Set exact target sizes, preserve PNG transparency, compare before/after, and batch-process files up to 50MB. No accounts, no tracking.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Flask</span>
+                        <span class="project-tag">Pillow</span>
+                        <span class="project-tag">Docker</span>
+                        <span class="project-tag">Fly.io</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://distill-image-optimizer.onrender.com/" target="_blank" rel="noopener" class="project-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            Live Demo
+                        </a>
+                        <a href="https://github.com/Designbrainy/distill-image-optimizer" target="_blank" rel="noopener" class="project-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NaijaScholar AI -->
+            <div class="project-card reveal">
+                <div class="project-body">
+                    <h3 class="project-title">NaijaScholar AI</h3>
+                    <p class="project-desc">An AI-powered academic assistant for Nigerian students, built with React and TypeScript. Uses Google Gemini to provide intelligent tutoring, study support, and scholarship guidance tailored to the Nigerian education system.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">React</span>
+                        <span class="project-tag">TypeScript</span>
+                        <span class="project-tag">Vite</span>
+                        <span class="project-tag">Gemini API</span>
+                        <span class="project-tag">Netlify</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Designbrainy/NaijaScholarAi" target="_blank" rel="noopener" class="project-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sentiment Analysis -->
+            <div class="project-card reveal">
+                <div class="project-body">
+                    <h3 class="project-title">Sentiment Analysis Pipeline</h3>
+                    <p class="project-desc">An NLP project analyzing Twitter sentiment using a corpus of 10,000+ tweets. Built a complete pipeline with text preprocessing, tokenization, stop-word removal, stemming, and data visualization with matplotlib.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">NLTK</span>
+                        <span class="project-tag">matplotlib</span>
+                        <span class="project-tag">pandas</span>
+                        <span class="project-tag">Jupyter</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Designbrainy" target="_blank" rel="noopener" class="project-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Design Work ===== -->
+<section class="section section-alt design-section" id="design">
+    <div class="section-inner">
+        <h2 class="section-title reveal">Design &amp; Creative Work</h2>
+        <p class="section-subtitle reveal">Beyond code, I create visual designs and brand identities. Explore my design portfolio on Behance.</p>
+        <div class="reveal">
+            <a href="https://www.behance.net/abdvrraheem" target="_blank" rel="noopener" class="btn btn-primary">
+                View on Behance →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section class="section" id="contact">
+    <div class="section-inner">
+        <h2 class="section-title reveal">Let's Work Together</h2>
+        <p class="section-subtitle reveal">I'm always open to new opportunities, collaborations, and interesting projects. Feel free to reach out.</p>
+
+        <div class="contact-grid reveal">
+            <!-- Email -->
+            <a href="mailto:abdulrahimahmed260@gmail.com" class="contact-card">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">abdulrahimahmed260@gmail.com</div>
+                </div>
+            </a>
+
+            <!-- Phone / WhatsApp -->
+            <a href="tel:+2349161267976" class="contact-card">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-label">Phone / WhatsApp</div>
+                    <div class="contact-value">+234 916 126 7976</div>
+                </div>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/ideahitz/" target="_blank" rel="noopener" class="contact-card">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452H16.89v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a1.983 1.983 0 0 1-1.98-1.981 1.98 1.98 0 1 1 1.98 1.981zm1.709 13.019H3.627V9h3.419v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-label">LinkedIn</div>
+                    <div class="contact-value">ideahitz</div>
+                </div>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/Designbrainy" target="_blank" rel="noopener" class="contact-card">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-label">GitHub</div>
+                    <div class="contact-value">Designbrainy</div>
+                </div>
+            </a>
+
+            <!-- Behance -->
+            <a href="https://www.behance.net/abdvrraheem" target="_blank" rel="noopener" class="contact-card">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/></svg>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-label">Behance</div>
+                    <div class="contact-value">abdvrraheem</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+    <p>&copy; 2026 Abdulrahim M Ahmed. Built with passion.</p>
+</footer>
+
+<script>
+    /* ===== Scroll Reveal ===== */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ===== Navbar scroll shadow ===== */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    /* ===== Mobile menu ===== */
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    hamburger.addEventListener('click', () => {
+        mobileNav.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNav.classList.remove('open');
+        });
+    });
+</script>
+</body>
+</html>
