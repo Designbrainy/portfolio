@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdulrahim M Ahmed — Professional CV</title>
+    <meta name="description" content="Curriculum Vitae of Abdulrahim M Ahmed — Software Developer, AI Enthusiast, and Electrical Engineer.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --primary-border: #bfdbfe;
+            --text-main: #0f172a;
+            --text-body: #334155;
+            --text-muted: #64748b;
+            --bg-page: #f1f5f9;
+            --bg-card: #ffffff;
+            --border-light: #e2e8f0;
+            --border-subtle: #cbd5e1;
+            --font-head: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-body);
+            background-color: var(--bg-page);
+            line-height: 1.55;
+            font-size: 13.5px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Top Action Bar (Screen Only) ===== */
+        .action-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .action-title {
+            font-family: var(--font-head);
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-title .badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--primary-border);
+        }
+
+        .action-btns {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-print {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-print:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-back {
+            background: #ffffff;
+            color: var(--text-body);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-back:hover {
+            background: #f8fafc;
+            color: var(--text-main);
+            border-color: var(--text-muted);
+        }
+
+        /* ===== Main Container ===== */
+        .cv-wrapper {
+            max-width: 860px;
+            margin: 28px auto 60px;
+            padding: 0 16px;
+        }
+
+        .cv-sheet {
+            background: var(--bg-card);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-light);
+            padding: 42px 48px;
+        }
+
+        /* ===== Header Section ===== */
+        .cv-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 24px;
+            margin-bottom: 22px;
+            gap: 20px;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .name-title-group h1 {
+            font-family: var(--font-head);
+            font-size: 2.15rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 6px;
+        }
+
+        .target-role {
+            font-family: var(--font-head);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 18px;
+            list-style: none;
+            color: var(--text-body);
+            font-size: 0.85rem;
+        }
+
+        .contact-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contact-item svg {
+            width: 14px;
+            height: 14px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .contact-item a {
+            color: var(--text-body);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Optional Avatar */
+        .header-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-light);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            flex-shrink: 0;
+        }
+
+        .header-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ===== Section Common Styles ===== */
+        .cv-section {
+            margin-bottom: 18px;
+        }
+
+        .section-heading {
+            font-family: var(--font-head);
+            font-size: 0.88rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1.5px solid var(--border-light);
+            break-after: avoid;
+            page-break-after: avoid;
+        }
+
+        .section-heading svg {
+            width: 16px;
+            height: 16px;
+            color: var(--primary);
+        }
+
+        .summary-text {
+            color: var(--text-body);
+            font-size: 0.90rem;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* ===== Skills Matrix ===== */
+        .skills-matrix {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 7px;
+        }
+
+        .skill-row {
+            display: grid;
+            grid-template-columns: 175px 1fr;
+            gap: 14px;
+            align-items: baseline;
+            font-size: 0.86rem;
+        }
+
+        .skill-category {
+            font-family: var(--font-head);
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 0.84rem;
+        }
+
+        .skill-items {
+            color: var(--text-body);
+            line-height: 1.45;
+        }
+
+        /* ===== Project Cards ===== */
+        .item-block {
+            margin-bottom: 14px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .item-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 3px;
+        }
+
+        .item-title-wrap {
+            display: inline-flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .item-title {
+            font-family: var(--font-head);
+            font-size: 0.96rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .item-tagline {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .item-links {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.8rem;
+        }
+
+        .item-links a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .item-links a:hover {
+            text-decoration: underline;
+        }
+
+        .item-links svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        .item-tech-stack {
+            font-size: 0.77rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            background: var(--primary-light);
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            border: 1px solid var(--primary-border);
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .item-bullets {
+            list-style: none;
+            padding-left: 2px;
+        }
+
+        .item-bullets li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 3px;
+            line-height: 1.5;
+            color: var(--text-body);
+            font-size: 0.86rem;
+        }
+
+        .item-bullets li::before {
+            content: "•";
+            position: absolute;
+            left: 2px;
+            top: -1px;
+            color: var(--primary);
+            font-size: 1.05rem;
+        }
+
+        .item-bullets li strong {
+            color: var(--text-main);
+        }
+
+        /* ===== Education & Others ===== */
+        .edu-degree {
+            font-family: var(--font-head);
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .edu-school {
+            font-weight: 600;
+            color: var(--text-body);
+            font-size: 0.88rem;
+        }
+
+        .edu-details {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+            line-height: 1.5;
+        }
+
+        .page-break {
+            display: none;
+        }
+
+        /* ===== Print Optimization ===== */
+        @page {
+            size: A4 portrait;
+            margin: 14mm 16mm;
+        }
+
+        @media print {
+            html, body {
+                background-color: #ffffff !important;
+                font-size: 12.5px !important;
+                color: #0f172a !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .action-bar {
+                display: none !important;
+            }
+
+            .page-break {
+                display: block !important;
+                page-break-before: always !important;
+                break-before: page !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .cv-wrapper {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .cv-sheet {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+            }
+
+            .name-title-group h1 {
+                font-size: 2rem !important;
+            }
+
+            .target-role {
+                font-size: 1rem !important;
+                margin-bottom: 10px !important;
+            }
+
+            .cv-header {
+                padding-bottom: 16px !important;
+                margin-bottom: 16px !important;
+            }
+
+            .cv-section {
+                margin-bottom: 18px !important;
+            }
+
+            .section-heading {
+                margin-bottom: 10px !important;
+                padding-bottom: 5px !important;
+            }
+
+            .item-block {
+                margin-bottom: 13px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .item-bullets li {
+                font-size: 0.86rem !important;
+                margin-bottom: 3px !important;
+                line-height: 1.5 !important;
+            }
+
+            .summary-text {
+                font-size: 0.88rem !important;
+                line-height: 1.6 !important;
+            }
+
+            .skill-row {
+                font-size: 0.85rem !important;
+                grid-template-columns: 170px 1fr !important;
+            }
+
+            .item-tech-stack {
+                font-size: 0.76rem !important;
+                padding: 2px 7px !important;
+                background-color: #eff6ff !important;
+                border: 1px solid #bfdbfe !important;
+                color: #1d4ed8 !important;
+            }
+
+            a {
+                text-decoration: none !important;
+                color: inherit !important;
+            }
+
+            .item-links a, .contact-item a {
+                color: #2563eb !important;
+            }
+        }
+
+        /* ===== Responsive Mobile Styles ===== */
+        @media (max-width: 680px) {
+            .cv-sheet {
+                padding: 24px 20px;
+            }
+            .cv-header {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+            }
+            .header-avatar {
+                width: 72px;
+                height: 72px;
+            }
+            .name-title-group h1 {
+                font-size: 1.7rem;
+            }
+            .skill-row {
+                grid-template-columns: 1fr;
+                gap: 2px;
+            }
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .action-bar {
+                padding: 10px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Action Bar (Screen Only) -->
+<header class="action-bar">
+    <div class="action-title">
+        <span>Abdulrahim M Ahmed — Curriculum Vitae</span>
+        <span class="badge">ATS-Friendly &amp; Printable</span>
+    </div>
+    <div class="action-btns">
+        <a href="index.html" class="action-btn btn-back">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Portfolio
+        </a>
+        <a href="Abdulrahim_M_Ahmed_CV.pdf" download="Abdulrahim_M_Ahmed_CV.pdf" class="action-btn btn-print">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download PDF
+        </a>
+        <button onclick="window.print()" class="action-btn btn-back">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            Print
+        </button>
+    </div>
+</header>
+
+<!-- Main CV Document Wrapper -->
+<div class="cv-wrapper">
+    <main class="cv-sheet">
+        <!-- Header -->
+        <header class="cv-header">
+            <div class="header-content">
+                <div class="name-title-group">
+                    <h1>Abdulrahim M Ahmed</h1>
+                    <div class="target-role">Software Developer &amp; Electrical Engineer | AI Engineer</div>
+                </div>
+
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Zaria, Kaduna State, Nigeria</span>
+                    </li>
+                    <li class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <a href="mailto:abdulrahimahmed260@gmail.com">abdulrahimahmed260@gmail.com</a>
+                    </li>
+                    <li class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <a href="tel:+2349161267976">+234 916 126 7976</a>
+                    </li>
+                    <li class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        <a href="https://github.com/Designbrainy" target="_blank" rel="noopener">github.com/Designbrainy</a>
+                    </li>
+                    <li class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452H16.89v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a1.983 1.983 0 0 1-1.98-1.981 1.98 1.98 0 1 1 1.98 1.981zm1.709 13.019H3.627V9h3.419v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        <a href="https://www.linkedin.com/in/ideahitz/" target="_blank" rel="noopener">linkedin.com/in/ideahitz</a>
+                    </li>
+                    <li class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/></svg>
+                        <a href="https://www.behance.net/abdvrraheem" target="_blank" rel="noopener">behance.net/abdvrraheem</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="header-avatar">
+                <img src="profile.jpg" alt="Abdulrahim M Ahmed">
+            </div>
+        </header>
+
+        <!-- Professional Summary -->
+        <section class="cv-section">
+            <h2 class="section-heading">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Professional Summary
+            </h2>
+            <p class="summary-text">
+                Resourceful <strong>Software Developer</strong> and <strong>Electrical Engineering</strong> student at Ahmadu Bello University, combining rigorous engineering principles with modern full-stack development and applied artificial intelligence. Proven track record of designing and deploying functional digital products—from generative AI study platforms and image compression engines to fintech and telecom utilities. Adept at bridging clean user experience with resilient backend architectures, with a dedicated focus on building scalable solutions that solve pressing real-world challenges across African contexts.
+            </p>
+        </section>
+
+        <!-- Technical Skills -->
+        <section class="cv-section">
+            <h2 class="section-heading">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                Technical &amp; Professional Skills
+            </h2>
+            <div class="skills-matrix">
+                <div class="skill-row">
+                    <span class="skill-category">Programming Languages</span>
+                    <span class="skill-items">Python, JavaScript (ES6+), TypeScript, HTML5, CSS3, SQL</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-category">AI &amp; Data Science</span>
+                    <span class="skill-items">Google Gemini API, LLM Prompt Engineering, Natural Language Processing (NLP), NLTK, Sentiment Analysis, pandas, matplotlib, Jupyter</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-category">Frontend Engineering</span>
+                    <span class="skill-items">React, TypeScript, Vite, Progressive Web Apps (PWA), Responsive UI/UX Design, CSS3 Animations</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-category">Backend &amp; Cloud</span>
+                    <span class="skill-items">Node.js, Express.js, Flask, Netlify Functions (Serverless), RESTful APIs, Drizzle ORM, Docker, Render, Fly.io</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-category">Fintech &amp; Compliance</span>
+                    <span class="skill-items">Paystack API, Virtual Accounts, Digital Wallet Float, NIMC &amp; NCC Identity Verification Workflows</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-category">Design &amp; Tooling</span>
+                    <span class="skill-items">Brand Identity Design, UI/UX Prototyping, Git, GitHub, VS Code, Postman, Linux/CLI</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Projects -->
+        <section class="cv-section">
+            <h2 class="section-heading">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                Featured Engineering &amp; AI Projects
+            </h2>
+
+            <!-- EE Scholar AI -->
+            <div class="item-block">
+                <div class="item-header">
+                    <div class="item-title-wrap">
+                        <span class="item-title">EE Scholar AI</span>
+                        <span class="item-tagline">— AI-Powered Academic Tutor &amp; Engineering Assistant</span>
+                    </div>
+                    <div class="item-links">
+                        <a href="https://fluffy-malabi-909d45.netlify.app" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> Live Demo
+                        </a>
+                        <a href="https://github.com/Designbrainy/ABU-EE-Scholar" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="item-tech-stack">JavaScript • Netlify Functions • Google Gemini API • Drizzle ORM • PWA • CSS3</div>
+                <ul class="item-bullets">
+                    <li>Engineered an interactive AI tutoring application serving Electrical Engineering undergraduates at Ahmadu Bello University, Zaria.</li>
+                    <li>Integrated <strong>Google Gemini API</strong> with structured system prompting and curriculum retrieval to answer complex technical engineering queries and evaluate study files.</li>
+                    <li>Implemented multi-modal study tools including voice-based tutoring interactions and an automated Nigerian 5-point GPA calculator.</li>
+                    <li>Packaged as an installable <strong>Progressive Web App (PWA)</strong> with offline support and serverless Netlify microservices for low-latency delivery.</li>
+                </ul>
+            </div>
+
+            <!-- MTN Village -->
+            <div class="item-block">
+                <div class="item-header">
+                    <div class="item-title-wrap">
+                        <span class="item-title">MTN Village Portal</span>
+                        <span class="item-tagline">— Telecom Vending &amp; Identity Registration Platform</span>
+                    </div>
+                    <div class="item-links">
+                        <a href="https://mtn-village-app.onrender.com/" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> Live Demo
+                        </a>
+                        <a href="https://github.com/Designbrainy/mtn-village-app" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="item-tech-stack">Node.js • Express.js • JavaScript • Paystack API • Render</div>
+                <ul class="item-bullets">
+                    <li>Developed a telecom automation and government citizen identity booking portal designed for the Birnin Gwari community.</li>
+                    <li>Integrated the <strong>Paystack API</strong> to enable instant multi-network data/airtime vending, automated virtual accounts, and digital wallet float balances.</li>
+                    <li>Engineered structured booking pipelines compliant with <strong>NIMC</strong> and <strong>NCC</strong> regulatory frameworks for NIN and BVN enrollments.</li>
+                    <li>Designed cryptographic-style verifiable digital receipts to prevent transaction forgery across local retail kiosks.</li>
+                </ul>
+            </div>
+
+            <!-- Page Break for Clean 2-Page Print Layout -->
+            <div class="page-break"></div>
+
+            <!-- Distill -->
+            <div class="item-block">
+                <div class="item-header">
+                    <div class="item-title-wrap">
+                        <span class="item-title">Distill</span>
+                        <span class="item-tagline">— Privacy-First Image Optimization Microservice</span>
+                    </div>
+                    <div class="item-links">
+                        <a href="https://distill-image-optimizer.onrender.com/" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> Live Demo
+                        </a>
+                        <a href="https://github.com/Designbrainy/distill-image-optimizer" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="item-tech-stack">Python • Flask • Pillow (PIL) • Docker • Fly.io • Render</div>
+                <ul class="item-bullets">
+                    <li>Engineered an image compression service capable of processing JPEG, PNG, and WebP assets up to 50MB with strict quality preservation.</li>
+                    <li>Implemented target byte-size threshold calculations while ensuring PNG alpha transparency channel integrity.</li>
+                    <li>Built zero-tracking, temporary in-memory buffering mechanisms ensuring user data is never stored or tracked.</li>
+                    <li>Containerized application dependencies with <strong>Docker</strong> for reproducible, production-ready cloud deployment.</li>
+                </ul>
+            </div>
+
+            <!-- NaijaScholar AI & Sentiment Analysis -->
+            <div class="item-block">
+                <div class="item-header">
+                    <div class="item-title-wrap">
+                        <span class="item-title">NaijaScholar AI</span>
+                        <span class="item-tagline">— Intelligent Academic Assistant for Nigerian Curricula</span>
+                    </div>
+                    <div class="item-links">
+                        <a href="https://github.com/Designbrainy/NaijaScholarAi" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="item-tech-stack">React • TypeScript • Vite • Google Gemini API • Netlify</div>
+                <ul class="item-bullets">
+                    <li>Constructed a type-safe single-page application integrating Google Gemini to generate curated academic mentoring and scholarship guidance.</li>
+                    <li>Engineered performant frontend components using React and Vite, optimizing mobile web responsiveness and data payload size.</li>
+                </ul>
+            </div>
+
+            <!-- Twitter Sentiment Analysis Pipeline -->
+            <div class="item-block">
+                <div class="item-header">
+                    <div class="item-title-wrap">
+                        <span class="item-title">Twitter Sentiment Analysis Pipeline</span>
+                        <span class="item-tagline">— NLP &amp; Social Opinion Mining</span>
+                    </div>
+                    <div class="item-links">
+                        <a href="https://github.com/Designbrainy/sentiment-analysis-pipeline" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="item-tech-stack">Python • NLTK • pandas • matplotlib • Jupyter Notebook</div>
+                <ul class="item-bullets">
+                    <li>Implemented a complete natural language processing workflow processing over 10,000 tweets with tokenization, stop-word removal, and word stemming.</li>
+                    <li>Generated empirical statistical summaries and graphical sentiment distributions using pandas and matplotlib.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Design & Creative Work -->
+        <section class="cv-section">
+            <h2 class="section-heading">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path></svg>
+                Design &amp; Creative Experience
+            </h2>
+            <div class="item-block">
+                <div class="item-header">
+                    <div class="item-title-wrap">
+                        <span class="item-title">Brand &amp; Visual Identity Designer</span>
+                        <span class="item-tagline">— Freelance &amp; Product Design</span>
+                    </div>
+                    <div class="item-links">
+                        <a href="https://www.behance.net/abdvrraheem" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> Behance Portfolio
+                        </a>
+                    </div>
+                </div>
+                <ul class="item-bullets">
+                    <li>Developed visual identity guidelines, typography systems, and high-fidelity interface layouts for technology projects and brand clients.</li>
+                    <li>Unified engineering logic with accessible human-centered UX design to maximize adoption across web applications.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="cv-section">
+            <h2 class="section-heading">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                Education
+            </h2>
+            <div class="item-block">
+                <div class="item-header">
+                    <span class="edu-degree">Bachelor of Engineering (B.Eng.) in Electrical Engineering</span>
+                    <span class="edu-school">Ahmadu Bello University (ABU), Zaria, Nigeria</span>
+                </div>
+                <div class="edu-details">
+                    <strong>Relevant Coursework:</strong> Software Systems, Data Structures &amp; Algorithms, Digital Electronics, Circuit Analysis, Signals &amp; Systems, Control Engineering, Applied Mathematics.<br>
+                    <strong>Academic Focus:</strong> Practical AI/ML integration, embedded systems, and scalable software solutions.
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership & Additional Details -->
+        <section class="cv-section">
+            <h2 class="section-heading">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                Additional Details &amp; Highlights
+            </h2>
+            <div class="skills-matrix">
+                <div class="skill-row">
+                    <span class="skill-category">Languages</span>
+                    <span class="skill-items">English (Fluent / Professional Proficiency), Hausa (Native)</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-category">Core Focus</span>
+                    <span class="skill-items">Applied AI &amp; Generative Systems, Privacy-First Architecture, Local Telecom Infrastructure, Community Impact</span>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-category">Engineering Approach</span>
+                    <span class="skill-items">First-principles problem breakdown, empirical testing, modular architecture, and human-centered design.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>

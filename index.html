@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Blossom Carousel -->
+    <link rel="stylesheet" href="https://unpkg.com/@blossom-carousel/web/dist/blossom-carousel-web.css" />
+    <script defer src="https://unpkg.com/@blossom-carousel/web/dist/blossom-carousel-web.umd.js"></script>
     <style>
         /* ===== CSS Variables ===== */
         :root {
@@ -328,15 +331,61 @@
             background: var(--primary-light);
         }
 
-        /* ===== Projects Grid ===== */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        /* ===== Projects Carousel ===== */
+        .projects-carousel-wrapper {
+            position: relative;
+            margin: 0 -24px;
+            padding: 0 24px;
+        }
+        .projects-carousel {
+            display: flex;
             gap: 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 16px 0 24px;
+            list-style: none;
         }
-        @media (max-width: 768px) {
-            .projects-grid { grid-template-columns: 1fr; }
+        .projects-carousel::-webkit-scrollbar {
+            display: none;
         }
+        .projects-carousel {
+            scrollbar-width: none;
+        }
+        .carousel-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .carousel-nav button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .carousel-nav button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+        .carousel-nav button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+        .carousel-nav button svg {
+            width: 18px;
+            height: 18px;
+        }
+
         /* ===== Floating Card Animation ===== */
         @keyframes floatCard {
             0%, 100% {
@@ -348,17 +397,23 @@
         }
 
         .project-card {
+            flex: 0 0 340px;
+            scroll-snap-align: start;
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 32px 28px 28px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            overflow: hidden;
             box-shadow: var(--card-shadow);
-            transition: border-color var(--transition), box-shadow var(--transition);
+            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
             animation: floatCard 4.5s ease-in-out infinite;
             will-change: transform;
+        }
+        @media (max-width: 600px) {
+            .project-card {
+                flex: 0 0 290px;
+            }
         }
         .project-card:nth-child(1) { animation-delay: 0s; animation-duration: 4.6s; }
         .project-card:nth-child(2) { animation-delay: 0.9s; animation-duration: 5.2s; }
@@ -370,24 +425,82 @@
             animation-play-state: paused;
             border-color: var(--primary);
             box-shadow: var(--card-shadow-hover);
+            transform: translateY(-4px);
         }
+
+        /* Placeholder image */
+        .project-image-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        .project-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #e0e7ff 50%, #f0f4ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-image .project-icon {
+            width: 56px;
+            height: 56px;
+            color: var(--primary);
+            opacity: 0.5;
+        }
+        .project-image .project-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(37, 99, 235, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition);
+        }
+        .project-card:hover .project-image-overlay {
+            background: rgba(37, 99, 235, 0.08);
+        }
+        .project-image-overlay span {
+            opacity: 0;
+            transform: translateY(6px);
+            transition: all var(--transition);
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: #fff;
+            padding: 6px 16px;
+            border-radius: 100px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .project-card:hover .project-image-overlay span {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .project-body {
             display: flex;
             flex-direction: column;
             height: 100%;
             justify-content: space-between;
+            padding: 24px 24px 20px;
         }
         .project-title {
             font-family: var(--font-heading);
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .project-desc {
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 16px;
+            line-height: 1.65;
+            margin-bottom: 14px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         .project-tags {
             display: flex;
@@ -396,9 +509,9 @@
             margin-bottom: 16px;
         }
         .project-tag {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 600;
-            padding: 4px 10px;
+            padding: 3px 9px;
             background: var(--bg-alt);
             border: 1px solid var(--border);
             border-radius: 100px;
@@ -406,18 +519,43 @@
         }
         .project-links {
             display: flex;
-            gap: 16px;
+            gap: 10px;
+            align-items: center;
         }
         .project-link {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--primary);
         }
         .project-link:hover { color: var(--primary-dark); }
-        .project-link svg { width: 16px; height: 16px; }
+        .project-link svg { width: 15px; height: 15px; }
+        .btn-repo {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 100px;
+            border: 1.5px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--transition);
+        }
+        .btn-repo:hover {
+            border-color: var(--text);
+            color: var(--text);
+            background: var(--bg-alt);
+        }
+        .btn-repo svg {
+            width: 15px;
+            height: 15px;
+        }
 
         /* ===== Design Section ===== */
         .design-section {
@@ -519,6 +657,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#design">Design</a></li>
+            <li><a href="cv.html" target="_blank">CV</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -531,6 +670,7 @@
         <li><a href="#about" class="mobile-link">About</a></li>
         <li><a href="#projects" class="mobile-link">Projects</a></li>
         <li><a href="#design" class="mobile-link">Design</a></li>
+        <li><a href="cv.html" target="_blank" class="mobile-link">CV</a></li>
         <li><a href="#contact" class="mobile-link">Contact</a></li>
     </ul>
 </div>
@@ -551,6 +691,7 @@
         </div>
         <div class="hero-btns reveal">
             <a href="#projects" class="btn btn-primary">View My Work ↓</a>
+            <a href="cv.html" class="btn btn-outline" target="_blank">View CV</a>
             <a href="#contact" class="btn btn-outline">Get In Touch</a>
         </div>
     </div>
@@ -572,122 +713,166 @@
         <h2 class="section-title reveal">Projects</h2>
         <p class="section-subtitle reveal">A selection of things I've built — each one started as a problem I wanted to solve.</p>
 
-        <div class="projects-grid">
-            <!-- EE Scholar AI -->
-            <div class="project-card reveal">
-                <div class="project-body">
-                    <h3 class="project-title">EE Scholar AI</h3>
-                    <p class="project-desc">An AI-powered tutor for Electrical Engineering students at ABU Zaria. Features chat with Gemini, course-specific study materials with file attachments, a Nigerian 5-point GPA calculator, voice tutoring, and a downloadable PWA.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">JavaScript</span>
-                        <span class="project-tag">Netlify Functions</span>
-                        <span class="project-tag">Gemini API</span>
-                        <span class="project-tag">Drizzle ORM</span>
-                        <span class="project-tag">PWA</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://fluffy-malabi-909d45.netlify.app" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                            Live Demo
-                        </a>
-                        <a href="https://github.com/Designbrainy/ABU-EE-Scholar" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="projects-carousel-wrapper reveal">
+            <blossom-carousel id="projects-carousel">
+                <ul class="projects-carousel" data-blossom-track>
 
-            <!-- Distill -->
-            <div class="project-card reveal">
-                <div class="project-body">
-                    <h3 class="project-title">Distill</h3>
-                    <p class="project-desc">A privacy-first image compressor that shrinks JPEG, PNG, and WebP files without quality loss. Set exact target sizes, preserve PNG transparency, compare before/after, and batch-process files up to 50MB. No accounts, no tracking.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Python</span>
-                        <span class="project-tag">Flask</span>
-                        <span class="project-tag">Pillow</span>
-                        <span class="project-tag">Docker</span>
-                        <span class="project-tag">Fly.io</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://distill-image-optimizer.onrender.com/" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                            Live Demo
+                    <!-- EE Scholar AI -->
+                    <li class="project-card" data-blossom-slide>
+                        <a href="https://fluffy-malabi-909d45.netlify.app" target="_blank" rel="noopener" class="project-image-link">
+                            <div class="project-image">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg>
+                                <div class="project-image-overlay"><span>View Live ↗</span></div>
+                            </div>
                         </a>
-                        <a href="https://github.com/Designbrainy/distill-image-optimizer" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-            </div>
+                        <div class="project-body">
+                            <div>
+                                <h3 class="project-title">EE Scholar AI</h3>
+                                <p class="project-desc">An AI-powered tutor for Electrical Engineering students at ABU Zaria. Features chat with Gemini, course-specific study materials, a GPA calculator, voice tutoring, and a downloadable PWA.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">JavaScript</span>
+                                    <span class="project-tag">Netlify Functions</span>
+                                    <span class="project-tag">Gemini API</span>
+                                    <span class="project-tag">PWA</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Designbrainy/ABU-EE-Scholar" target="_blank" rel="noopener" class="btn-repo">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    View Repo
+                                </a>
+                            </div>
+                        </div>
+                    </li>
 
-            <!-- MTN Village -->
-            <div class="project-card reveal">
-                <div class="project-body">
-                    <h3 class="project-title">MTN Village</h3>
-                    <p class="project-desc">A digital telecom and government identity registration portal for Birnin Gwari, currently in the building and testing phase. Features instant multi-network data and airtime purchases, NIMC &amp; NCC compliant NIN/BVN appointment bookings, Paystack payments, virtual accounts, wallet float, and verifiable digital receipts.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Node.js</span>
-                        <span class="project-tag">Express</span>
-                        <span class="project-tag">JavaScript</span>
-                        <span class="project-tag">Paystack API</span>
-                        <span class="project-tag">Render</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://mtn-village-app.onrender.com/" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                            Live Demo
+                    <!-- Distill -->
+                    <li class="project-card" data-blossom-slide>
+                        <a href="https://distill-image-optimizer.onrender.com/" target="_blank" rel="noopener" class="project-image-link">
+                            <div class="project-image">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                <div class="project-image-overlay"><span>View Live ↗</span></div>
+                            </div>
                         </a>
-                        <a href="https://github.com/Designbrainy/mtn-village-app" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-            </div>
+                        <div class="project-body">
+                            <div>
+                                <h3 class="project-title">Distill</h3>
+                                <p class="project-desc">A privacy-first image compressor that shrinks JPEG, PNG, and WebP files without quality loss. Set exact target sizes, preserve PNG transparency, and batch-process files up to 50MB.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Python</span>
+                                    <span class="project-tag">Flask</span>
+                                    <span class="project-tag">Pillow</span>
+                                    <span class="project-tag">Docker</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Designbrainy/distill-image-optimizer" target="_blank" rel="noopener" class="btn-repo">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    View Repo
+                                </a>
+                            </div>
+                        </div>
+                    </li>
 
-            <!-- NaijaScholar AI -->
-            <div class="project-card reveal">
-                <div class="project-body">
-                    <h3 class="project-title">NaijaScholar AI</h3>
-                    <p class="project-desc">An AI-powered academic assistant for Nigerian students, built with React and TypeScript. Uses Google Gemini to provide intelligent tutoring, study support, and scholarship guidance tailored to the Nigerian education system.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">React</span>
-                        <span class="project-tag">TypeScript</span>
-                        <span class="project-tag">Vite</span>
-                        <span class="project-tag">Gemini API</span>
-                        <span class="project-tag">Netlify</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/Designbrainy/NaijaScholarAi" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                            GitHub
+                    <!-- MTN Village -->
+                    <li class="project-card" data-blossom-slide>
+                        <a href="https://mtn-village-app.onrender.com/" target="_blank" rel="noopener" class="project-image-link">
+                            <div class="project-image">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                <div class="project-image-overlay"><span>View Live ↗</span></div>
+                            </div>
                         </a>
-                    </div>
-                </div>
-            </div>
+                        <div class="project-body">
+                            <div>
+                                <h3 class="project-title">MTN Village</h3>
+                                <p class="project-desc">A digital telecom and government identity registration portal for Birnin Gwari. Features multi-network data/airtime purchases, NIN/BVN bookings, Paystack payments, and digital receipts.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Node.js</span>
+                                    <span class="project-tag">Express</span>
+                                    <span class="project-tag">Paystack API</span>
+                                    <span class="project-tag">Render</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Designbrainy/mtn-village-app" target="_blank" rel="noopener" class="btn-repo">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    View Repo
+                                </a>
+                            </div>
+                        </div>
+                    </li>
 
-            <!-- Sentiment Analysis -->
-            <div class="project-card reveal">
-                <div class="project-body">
-                    <h3 class="project-title">Sentiment Analysis Pipeline</h3>
-                    <p class="project-desc">An NLP project analyzing Twitter sentiment using a corpus of 10,000+ tweets. Built a complete pipeline with text preprocessing, tokenization, stop-word removal, stemming, and data visualization with matplotlib.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">Python</span>
-                        <span class="project-tag">NLTK</span>
-                        <span class="project-tag">matplotlib</span>
-                        <span class="project-tag">pandas</span>
-                        <span class="project-tag">Jupyter</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/Designbrainy/sentiment-analysis-pipeline" target="_blank" rel="noopener" class="project-link">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                            GitHub
+                    <!-- NaijaScholar AI -->
+                    <li class="project-card" data-blossom-slide>
+                        <a href="https://github.com/Designbrainy/NaijaScholarAi" target="_blank" rel="noopener" class="project-image-link">
+                            <div class="project-image">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                <div class="project-image-overlay"><span>View on GitHub ↗</span></div>
+                            </div>
                         </a>
-                    </div>
-                </div>
+                        <div class="project-body">
+                            <div>
+                                <h3 class="project-title">NaijaScholar AI</h3>
+                                <p class="project-desc">An AI-powered academic assistant for Nigerian students, built with React and TypeScript. Uses Google Gemini for intelligent tutoring, study support, and scholarship guidance.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">React</span>
+                                    <span class="project-tag">TypeScript</span>
+                                    <span class="project-tag">Vite</span>
+                                    <span class="project-tag">Gemini API</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Designbrainy/NaijaScholarAi" target="_blank" rel="noopener" class="btn-repo">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    View Repo
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Sentiment Analysis Pipeline -->
+                    <li class="project-card" data-blossom-slide>
+                        <a href="https://github.com/Designbrainy/sentiment-analysis-pipeline" target="_blank" rel="noopener" class="project-image-link">
+                            <div class="project-image">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                                <div class="project-image-overlay"><span>View on GitHub ↗</span></div>
+                            </div>
+                        </a>
+                        <div class="project-body">
+                            <div>
+                                <h3 class="project-title">Sentiment Analysis Pipeline</h3>
+                                <p class="project-desc">An NLP project analyzing Twitter sentiment using 10,000+ tweets. Complete pipeline with text preprocessing, tokenization, stop-word removal, stemming, and data visualization.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Python</span>
+                                    <span class="project-tag">NLTK</span>
+                                    <span class="project-tag">matplotlib</span>
+                                    <span class="project-tag">pandas</span>
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Designbrainy/sentiment-analysis-pipeline" target="_blank" rel="noopener" class="btn-repo">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                    View Repo
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </blossom-carousel>
+
+            <!-- Carousel Navigation -->
+            <div class="carousel-nav">
+                <blossom-prev for="projects-carousel" class="carousel-nav-btn">
+                    <button type="button" aria-label="Previous project">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    </button>
+                </blossom-prev>
+                <blossom-dots for="projects-carousel"></blossom-dots>
+                <blossom-next for="projects-carousel" class="carousel-nav-btn">
+                    <button type="button" aria-label="Next project">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </blossom-next>
             </div>
         </div>
     </div>
