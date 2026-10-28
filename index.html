@@ -335,21 +335,23 @@
         .projects-carousel-wrapper {
             position: relative;
             margin: 0 -24px;
-            padding: 0 24px;
+            padding: 20px 24px 30px;
+            overflow: hidden;
         }
         blossom-carousel#projects-carousel,
         .projects-carousel {
             display: flex !important;
-            gap: 24px;
+            gap: 28px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
-            padding: 16px 0 24px;
+            padding: 30px 10vw 40px;
             list-style: none;
             scrollbar-width: none;
             cursor: grab;
             user-select: none;
             -webkit-user-select: none;
+            align-items: center;
         }
         blossom-carousel#projects-carousel:active,
         .projects-carousel:active,
@@ -365,79 +367,108 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-top: 8px;
+            gap: 16px;
+            margin-top: 10px;
         }
         .carousel-nav button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             border: 1.5px solid var(--border);
             background: var(--bg);
             color: var(--text);
             cursor: pointer;
             transition: all var(--transition);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
         }
         .carousel-nav button:hover {
             border-color: var(--primary);
-            color: var(--primary);
-            background: var(--primary-light);
+            color: #ffffff;
+            background: var(--primary);
+            transform: scale(1.08);
         }
         .carousel-nav button:disabled {
             opacity: 0.35;
             cursor: not-allowed;
+            transform: none;
         }
         .carousel-nav button svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
         }
 
-        /* ===== Floating Card Animation ===== */
-        @keyframes floatCard {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
+        /* ===== Carousel Dot Indicators ===== */
+        .carousel-dots {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .carousel-dot:hover {
+            background: var(--text-light);
+        }
+        .carousel-dot.active {
+            width: 26px;
+            border-radius: 100px;
+            background: var(--primary);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
         }
 
+        /* ===== Project Cards with Focus State ===== */
         .project-card {
             flex: 0 0 340px;
-            scroll-snap-align: start;
+            scroll-snap-align: center;
             background: var(--bg);
-            border: 1px solid var(--border);
+            border: 1.5px solid var(--border);
             border-radius: var(--radius);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             box-shadow: var(--card-shadow);
-            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
-            animation: floatCard 4.5s ease-in-out infinite;
-            will-change: transform;
+            opacity: 0.65;
+            transform: scale(0.92);
+            filter: grayscale(25%);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        opacity 0.4s ease,
+                        box-shadow 0.4s ease,
+                        border-color 0.4s ease,
+                        filter 0.4s ease;
+            will-change: transform, opacity;
         }
         @media (max-width: 600px) {
             .project-card {
-                flex: 0 0 290px;
+                flex: 0 0 280px;
             }
         }
-        .project-card:nth-child(1) { animation-delay: 0s; animation-duration: 4.6s; }
-        .project-card:nth-child(2) { animation-delay: 0.9s; animation-duration: 5.2s; }
-        .project-card:nth-child(3) { animation-delay: 1.7s; animation-duration: 4.8s; }
-        .project-card:nth-child(4) { animation-delay: 2.5s; animation-duration: 5.4s; }
-        .project-card:nth-child(5) { animation-delay: 1.3s; animation-duration: 4.9s; }
 
-        .project-card:hover {
-            animation-play-state: paused;
+        /* Active / In-Focus Card */
+        .project-card.is-active {
+            opacity: 1;
+            transform: scale(1.05);
+            filter: grayscale(0%);
             border-color: var(--primary);
-            box-shadow: var(--card-shadow-hover);
-            transform: translateY(-4px);
+            box-shadow: 0 16px 36px rgba(37, 99, 235, 0.18), 0 6px 16px rgba(0, 0, 0, 0.06);
+            z-index: 2;
         }
 
-        /* Placeholder image */
+        .project-card:hover {
+            border-color: var(--primary);
+            opacity: 1;
+        }
+
+        /* Placeholder image banners with distinct vibrant gradients */
         .project-image-link {
             display: block;
             text-decoration: none;
@@ -446,47 +477,63 @@
         .project-image {
             width: 100%;
             height: 180px;
-            background: linear-gradient(135deg, var(--primary-light) 0%, #e0e7ff 50%, #f0f4ff 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
+            background-size: 200% 200%;
+            transition: background 0.5s ease;
         }
+        /* Custom project gradient flavors */
+        .card-grad-1 { background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 50%, #60a5fa 100%); }
+        .card-grad-2 { background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #5eead4 100%); }
+        .card-grad-3 { background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fde047 100%); }
+        .card-grad-4 { background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #c4b5fd 100%); }
+        .card-grad-5 { background: linear-gradient(135deg, #e11d48 0%, #f43f5e 50%, #fda4af 100%); }
+
         .project-image .project-icon {
-            width: 56px;
-            height: 56px;
-            color: var(--primary);
-            opacity: 0.5;
+            width: 64px;
+            height: 64px;
+            color: #ffffff;
+            opacity: 0.92;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.18));
+            transition: transform 0.3s ease;
+        }
+        .project-card.is-active .project-icon,
+        .project-card:hover .project-icon {
+            transform: scale(1.1);
         }
         .project-image .project-image-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(37, 99, 235, 0);
+            background: rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background var(--transition);
         }
         .project-card:hover .project-image-overlay {
-            background: rgba(37, 99, 235, 0.08);
+            background: rgba(0, 0, 0, 0.28);
         }
         .project-image-overlay span {
             opacity: 0;
-            transform: translateY(6px);
+            transform: translateY(8px);
             transition: all var(--transition);
-            color: var(--primary);
+            color: var(--primary-dark);
             font-size: 0.85rem;
-            font-weight: 600;
-            background: #fff;
-            padding: 6px 16px;
+            font-weight: 700;
+            background: #ffffff;
+            padding: 8px 18px;
             border-radius: 100px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
         }
-        .project-card:hover .project-image-overlay span {
+        .project-card:hover .project-image-overlay span,
+        .project-card.is-active .project-image-overlay span {
             opacity: 1;
             transform: translateY(0);
         }
+
 
         .project-body {
             display: flex;
@@ -727,10 +774,10 @@
                 <ul class="projects-carousel" data-blossom-track>
 
                     <!-- EE Scholar AI -->
-                    <li class="project-card" data-blossom-slide>
+                    <li class="project-card" data-blossom-slide data-index="0">
                         <a href="https://fluffy-malabi-909d45.netlify.app" target="_blank" rel="noopener" class="project-image-link">
-                            <div class="project-image">
-                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg>
+                            <div class="project-image card-grad-1">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg>
                                 <div class="project-image-overlay"><span>View Live ↗</span></div>
                             </div>
                         </a>
@@ -755,10 +802,10 @@
                     </li>
 
                     <!-- Distill -->
-                    <li class="project-card" data-blossom-slide>
+                    <li class="project-card" data-blossom-slide data-index="1">
                         <a href="https://distill-image-optimizer.onrender.com/" target="_blank" rel="noopener" class="project-image-link">
-                            <div class="project-image">
-                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            <div class="project-image card-grad-2">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                                 <div class="project-image-overlay"><span>View Live ↗</span></div>
                             </div>
                         </a>
@@ -783,10 +830,10 @@
                     </li>
 
                     <!-- MTN Village -->
-                    <li class="project-card" data-blossom-slide>
+                    <li class="project-card" data-blossom-slide data-index="2">
                         <a href="https://mtn-village-app.onrender.com/" target="_blank" rel="noopener" class="project-image-link">
-                            <div class="project-image">
-                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                            <div class="project-image card-grad-3">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
                                 <div class="project-image-overlay"><span>View Live ↗</span></div>
                             </div>
                         </a>
@@ -811,10 +858,10 @@
                     </li>
 
                     <!-- NaijaScholar AI -->
-                    <li class="project-card" data-blossom-slide>
+                    <li class="project-card" data-blossom-slide data-index="3">
                         <a href="https://github.com/Designbrainy/NaijaScholarAi" target="_blank" rel="noopener" class="project-image-link">
-                            <div class="project-image">
-                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                            <div class="project-image card-grad-4">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                                 <div class="project-image-overlay"><span>View on GitHub ↗</span></div>
                             </div>
                         </a>
@@ -839,10 +886,10 @@
                     </li>
 
                     <!-- Sentiment Analysis Pipeline -->
-                    <li class="project-card" data-blossom-slide>
+                    <li class="project-card" data-blossom-slide data-index="4">
                         <a href="https://github.com/Designbrainy/sentiment-analysis-pipeline" target="_blank" rel="noopener" class="project-image-link">
-                            <div class="project-image">
-                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                            <div class="project-image card-grad-5">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                                 <div class="project-image-overlay"><span>View on GitHub ↗</span></div>
                             </div>
                         </a>
@@ -871,17 +918,13 @@
 
             <!-- Carousel Navigation -->
             <div class="carousel-nav">
-                <blossom-prev for="projects-carousel" class="carousel-nav-btn">
-                    <button type="button" aria-label="Previous project">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                    </button>
-                </blossom-prev>
-                <blossom-dots for="projects-carousel"></blossom-dots>
-                <blossom-next for="projects-carousel" class="carousel-nav-btn">
-                    <button type="button" aria-label="Next project">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                    </button>
-                </blossom-next>
+                <button type="button" class="carousel-nav-btn prev-btn" id="carousel-prev-btn" aria-label="Previous project">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <div class="carousel-dots" id="carousel-dots-container"></div>
+                <button type="button" class="carousel-nav-btn next-btn" id="carousel-next-btn" aria-label="Next project">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
             </div>
         </div>
     </div>
@@ -1002,20 +1045,180 @@
         });
     });
 
-    /* ===== Carousel Mouse Grab & Drag Enhancement ===== */
-    (function initCarouselDrag() {
+    /* ===== Continuous Infinite Loop Carousel & Active Focus Manager ===== */
+    (function initInfiniteCarousel() {
         const carousel = document.getElementById('projects-carousel');
         const track = document.querySelector('.projects-carousel');
         const container = track || carousel;
         if (!container) return;
 
+        const originalCards = Array.from(container.querySelectorAll('.project-card'));
+        const totalOriginal = originalCards.length;
+        if (totalOriginal === 0) return;
+
+        // Clone cards before and after to create a seamless infinite scrolling buffer
+        originalCards.forEach(card => {
+            const cloneEnd = card.cloneNode(true);
+            cloneEnd.classList.add('is-clone');
+            container.appendChild(cloneEnd);
+        });
+        originalCards.slice().reverse().forEach(card => {
+            const cloneStart = card.cloneNode(true);
+            cloneStart.classList.add('is-clone');
+            container.insertBefore(cloneStart, container.firstChild);
+        });
+
+        // Initialize dots
+        const dotsContainer = document.getElementById('carousel-dots-container');
+        if (dotsContainer) {
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalOriginal; i++) {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+                dot.setAttribute('aria-label', `Go to project ${i + 1}`);
+                dot.addEventListener('click', () => {
+                    scrollToOriginalIndex(i);
+                });
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // Get all cards including clones
+        let allCards = Array.from(container.querySelectorAll('.project-card'));
+
+        // Measure card unit width (card width + gap)
+        function getCardStep() {
+            if (allCards.length < 2) return 368;
+            return allCards[1].offsetLeft - allCards[0].offsetLeft;
+        }
+
+        const singleSetWidth = () => getCardStep() * totalOriginal;
+
+        // Position initial scroll at the middle original set centered
+        function centerInitial() {
+            const step = getCardStep();
+            const targetCard = allCards[totalOriginal]; // first original card in middle
+            if (targetCard) {
+                const targetScroll = targetCard.offsetLeft - (container.clientWidth - targetCard.offsetWidth) / 2;
+                container.scrollLeft = targetScroll;
+            }
+            updateActiveFocus();
+        }
+
+        // Run initial center positioning once layout renders
+        requestAnimationFrame(() => {
+            centerInitial();
+        });
+        window.addEventListener('resize', () => {
+            updateActiveFocus();
+        });
+
+        // Infinite loop wrap check
+        function checkInfiniteWrap() {
+            const setWidth = singleSetWidth();
+            if (setWidth <= 0) return;
+            const step = getCardStep();
+            const minBoundary = step * 1.5;
+            const maxBoundary = setWidth * 2;
+
+            if (container.scrollLeft < minBoundary) {
+                container.scrollLeft += setWidth;
+            } else if (container.scrollLeft > maxBoundary) {
+                container.scrollLeft -= setWidth;
+            }
+        }
+
+        // Find which card is closest to the carousel's center
+        let currentOriginalIndex = 0;
+        function updateActiveFocus() {
+            const containerCenter = container.scrollLeft + (container.clientWidth / 2);
+            let closestCard = null;
+            let closestDist = Infinity;
+
+            allCards.forEach(card => {
+                const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                const dist = Math.abs(containerCenter - cardCenter);
+                if (dist < closestDist) {
+                    closestDist = dist;
+                    closestCard = card;
+                }
+            });
+
+            if (closestCard) {
+                allCards.forEach(c => c.classList.remove('is-active'));
+                closestCard.classList.add('is-active');
+
+                const idx = parseInt(closestCard.getAttribute('data-index') || '0', 10);
+                currentOriginalIndex = idx;
+
+                // Update dots
+                if (dotsContainer) {
+                    const dots = dotsContainer.querySelectorAll('.carousel-dot');
+                    dots.forEach((dot, dIdx) => {
+                        dot.classList.toggle('active', dIdx === idx);
+                    });
+                }
+            }
+        }
+
+        function scrollToOriginalIndex(targetIdx) {
+            // Find the closest instance of this index
+            const containerCenter = container.scrollLeft + (container.clientWidth / 2);
+            let bestCard = null;
+            let bestDist = Infinity;
+
+            allCards.forEach(card => {
+                if (parseInt(card.getAttribute('data-index'), 10) === targetIdx) {
+                    const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                    const dist = Math.abs(containerCenter - cardCenter);
+                    if (dist < bestDist) {
+                        bestDist = dist;
+                        bestCard = card;
+                    }
+                }
+            });
+
+            if (bestCard) {
+                const targetScroll = bestCard.offsetLeft - (container.clientWidth - bestCard.offsetWidth) / 2;
+                container.scrollTo({ left: targetScroll, behavior: 'smooth' });
+            }
+        }
+
+        // Navigation buttons
+        const prevBtn = document.getElementById('carousel-prev-btn');
+        const nextBtn = document.getElementById('carousel-next-btn');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                const step = getCardStep();
+                container.scrollBy({ left: -step, behavior: 'smooth' });
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                const step = getCardStep();
+                container.scrollBy({ left: step, behavior: 'smooth' });
+            });
+        }
+
+        // Smooth continuous scroll listener
+        let scrollRaf = null;
+        container.addEventListener('scroll', () => {
+            if (scrollRaf) cancelAnimationFrame(scrollRaf);
+            scrollRaf = requestAnimationFrame(() => {
+                checkInfiniteWrap();
+                updateActiveFocus();
+            });
+        }, { passive: true });
+
+        // Mouse Drag Interaction
         let isDown = false;
         let startX = 0;
         let scrollStart = 0;
         let hasMoved = false;
 
         container.addEventListener('mousedown', (e) => {
-            // Only left click
             if (e.button !== 0) return;
             isDown = true;
             hasMoved = false;
@@ -1028,10 +1231,12 @@
             if (!isDown) return;
             const x = e.pageX - container.offsetLeft;
             const walk = (x - startX);
-            if (Math.abs(walk) > 5) {
+            if (Math.abs(walk) > 6) {
                 hasMoved = true;
             }
             container.scrollLeft = scrollStart - walk;
+            checkInfiniteWrap();
+            updateActiveFocus();
         });
 
         window.addEventListener('mouseup', () => {
@@ -1040,7 +1245,7 @@
             container.classList.remove('is-dragging');
         });
 
-        // Prevent accidental link navigation when user drags
+        // Prevent opening links if the user was dragging
         container.addEventListener('click', (e) => {
             if (hasMoved) {
                 e.preventDefault();
