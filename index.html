@@ -337,20 +337,29 @@
             margin: 0 -24px;
             padding: 0 24px;
         }
+        blossom-carousel#projects-carousel,
         .projects-carousel {
-            display: flex;
+            display: flex !important;
             gap: 24px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             padding: 16px 0 24px;
             list-style: none;
+            scrollbar-width: none;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
         }
+        blossom-carousel#projects-carousel:active,
+        .projects-carousel:active,
+        .projects-carousel.is-dragging {
+            cursor: grabbing !important;
+            scroll-snap-type: none !important;
+        }
+        blossom-carousel#projects-carousel::-webkit-scrollbar,
         .projects-carousel::-webkit-scrollbar {
             display: none;
-        }
-        .projects-carousel {
-            scrollbar-width: none;
         }
         .carousel-nav {
             display: flex;
@@ -992,6 +1001,53 @@
             mobileNav.classList.remove('open');
         });
     });
+
+    /* ===== Carousel Mouse Grab & Drag Enhancement ===== */
+    (function initCarouselDrag() {
+        const carousel = document.getElementById('projects-carousel');
+        const track = document.querySelector('.projects-carousel');
+        const container = track || carousel;
+        if (!container) return;
+
+        let isDown = false;
+        let startX = 0;
+        let scrollStart = 0;
+        let hasMoved = false;
+
+        container.addEventListener('mousedown', (e) => {
+            // Only left click
+            if (e.button !== 0) return;
+            isDown = true;
+            hasMoved = false;
+            startX = e.pageX - container.offsetLeft;
+            scrollStart = container.scrollLeft;
+            container.classList.add('is-dragging');
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX);
+            if (Math.abs(walk) > 5) {
+                hasMoved = true;
+            }
+            container.scrollLeft = scrollStart - walk;
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDown) return;
+            isDown = false;
+            container.classList.remove('is-dragging');
+        });
+
+        // Prevent accidental link navigation when user drags
+        container.addEventListener('click', (e) => {
+            if (hasMoved) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }, true);
+    })();
 </script>
 </body>
 </html>
